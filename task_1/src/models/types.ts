@@ -13,3 +13,10 @@ export interface Chargepoint {
   startCharging(demandKm: number): void;
   reset(): void;
 }
+
+export type SimulationResult = {
+  totalEnergyConsumed: number; // in kWh
+  theoreticalMaxPowerDemand: number; // in kW
+  actualMaxPowerDemand: number;
+  concurrencyFactor: number; // ratio of actual max power demand to theoretical max power demand
+};
