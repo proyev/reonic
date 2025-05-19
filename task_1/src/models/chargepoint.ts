@@ -4,7 +4,7 @@ import {
   DEFAULT_CHARGEPOINT_POWER,
   DEFAULT_EV_CONSUMPTION,
   TIME_CONSTANTS,
-} from "../config/constants";
+} from "../constants";
 
 export class Chargepoint implements IChargepoint {
   private _id: string;
