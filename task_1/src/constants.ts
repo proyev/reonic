@@ -7,10 +7,11 @@ export const DEFAULT_EV_CONSUMPTION = 18; // kWh per 100 km
 
 export const TIME_CONSTANTS = {
   MINUTES_PER_TICK: 15,
+  HOURS_PER_DAY: 24,
   DAYS_PER_YEAR: 365,
-  TICKS_PER_HOUR: 60 / 4,
-  TICKS_PER_DAY: 24 * (60 / 4),
-  TICKS_PER_YEAR: 365 * 24 * (60 / 4),
+  TICKS_PER_HOUR: 60 / 15,
+  TICKS_PER_DAY: 24 * (60 / 15),
+  TICKS_PER_YEAR: 365 * 24 * (60 / 15),
 };
 
 // probability of arrival by hour of day, index corresponds to hour (0-23)
