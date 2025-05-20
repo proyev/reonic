@@ -1,5 +1,10 @@
 import { TIME_CONSTANTS } from "./constants";
-import { Chargepoint, SimulationResult } from "./models/types";
+import { Chargepoint } from "./models/chargepoint";
+import { SimulationResult } from "./models/types";
+import {
+  getEVArrivalProbability,
+  getEVChargingDemand,
+} from "./utils/probability";
 
 export const runSim = (
   chargepoints: Chargepoint[],
@@ -18,8 +23,28 @@ export const runSim = (
 
         // process each chargepoint
         for (const chargepoint of chargepoints) {
-          console.log(chargepoint, currentPowerDemand);
+          // if chargepoint is empty, check for new EV arrival
+          if (!chargepoint.isOccupied) {
+            // EV arrival probability for this tick
+            const intervalProbability =
+              getEVArrivalProbability(hour) / TIME_CONSTANTS.TICKS_PER_HOUR;
+
+            // if EV arrives during this tick
+            if (Math.random() * 100 < intervalProbability) {
+              const demand = getEVChargingDemand();
+
+              if (demand > 0) chargepoint.startCharging(demand);
+            }
+          }
+
+          currentPowerDemand += chargepoint.currentPowerConsumption;
+
+          // process the chargepoint for this tick
+          chargepoint.tick();
         }
+
+        if (currentPowerDemand > maxPowerDemand)
+          maxPowerDemand = currentPowerDemand;
       }
     }
   }
@@ -34,7 +59,7 @@ export const runSim = (
     0,
   );
 
-  const concurrencyFactor = maxPowerDemand / theoreticalMaxPowerDemand;
+  const concurrencyFactor = (maxPowerDemand / theoreticalMaxPowerDemand) * 100;
 
   return {
     totalEnergyConsumed,
