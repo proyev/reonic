@@ -8,13 +8,13 @@ export const getEVArrivalProbability = (hourIndex: number): number => {
 };
 
 export const getEVChargingDemand = (): number => {
-  let cummulativeProbability = 0;
+  let cumulativeProbability = 0;
   const rnd = Math.random() * 100;
 
   for (const { probability, demand } of CHARGING_DEMAND) {
-    cummulativeProbability += probability;
+    cumulativeProbability += probability;
 
-    if (rnd <= cummulativeProbability) return demand;
+    if (rnd <= cumulativeProbability) return demand;
   }
 
   return 0; // if no demand found

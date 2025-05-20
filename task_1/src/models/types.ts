@@ -11,6 +11,7 @@ export interface Chargepoint {
   totalEnergyConsumption: number; // in kWh
 
   startCharging(demandKm: number): void;
+  getCurrentPowerConsumption(): number; // in kW
   tick(): void; // process a tick of time
   reset(): void;
 }
