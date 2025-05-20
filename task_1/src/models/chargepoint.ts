@@ -11,6 +11,7 @@ export class Chargepoint implements IChargepoint {
   private _isOccupied: boolean = false;
   private _remainingChargingTime: number = 0; // in ticks
   private _chargePower: number;
+  private _currentPowerConsumption: number; // in kW
   private _totalCharges: number = 0;
   private _totalEnergyConsumption: number = 0;
 
@@ -35,6 +36,10 @@ export class Chargepoint implements IChargepoint {
     return this._remainingChargingTime;
   }
 
+  get currentPowerConsumption(): number {
+    return this._isOccupied ? this._chargePower : 0;
+  }
+
   get totalCharges(): number {
     return this._totalCharges;
   }
@@ -54,6 +59,16 @@ export class Chargepoint implements IChargepoint {
 
     this._isOccupied = true;
     this._totalCharges++;
+  }
+
+  tick(): void {
+    if (!this._isOccupied) return; // not occupied, nothing to do
+
+    const energyConsumed = this._chargePower / TIME_CONSTANTS.TICKS_PER_HOUR;
+    this._totalEnergyConsumption += energyConsumed;
+
+    this._remainingChargingTime--;
+    if (this._remainingChargingTime <= 0) this._isOccupied = false; // charging complete
   }
 
   reset(): void {
