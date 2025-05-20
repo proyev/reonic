@@ -1,4 +1,4 @@
-import { ARRIVAL_PROBABILITY_BY_HOUR } from "../constants";
+import { ARRIVAL_PROBABILITY_BY_HOUR, CHARGING_DEMAND } from "../constants";
 
 export const getEVArrivalProbability = (hourIndex: number): number => {
   if (hourIndex < 0 || hourIndex > 23)
@@ -7,8 +7,15 @@ export const getEVArrivalProbability = (hourIndex: number): number => {
   return ARRIVAL_PROBABILITY_BY_HOUR[hourIndex];
 };
 
-export const doesEVArrive = (hourIndex: number): boolean => {
-  const probability = getEVArrivalProbability(hourIndex);
+export const getEVChargingDemand = (): number => {
+  let cummulativeProbability = 0;
+  const rnd = Math.random() * 100;
 
-  return Math.random() * 100 < probability;
+  for (const { probability, demand } of CHARGING_DEMAND) {
+    cummulativeProbability += probability;
+
+    if (rnd <= cummulativeProbability) return demand;
+  }
+
+  return 0; // if no demand found
 };
