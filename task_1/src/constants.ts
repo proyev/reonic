@@ -1,4 +1,4 @@
-import { ChargingDemand } from "./models/types";
+import { ChargingDemand } from "./models/types.js";
 
 export const DEFAULT_CHARGEPOINT_POWER = 11; // default charging power in kW
 export const DEFAULT_NUM_CHARGEPOINTS = 20;

@@ -1,10 +1,10 @@
-import { TIME_CONSTANTS } from "./constants";
-import { Chargepoint } from "./models/chargepoint";
-import { SimulationResult } from "./models/types";
+import { TIME_CONSTANTS } from "./constants.js";
+import { Chargepoint } from "./models/chargepoint.js";
+import { SimulationResult } from "./models/types.js";
 import {
   getEVArrivalProbability,
   getEVChargingDemand,
-} from "./utils/probability";
+} from "./utils/probability.js";
 
 export const runSim = (
   chargepoints: Chargepoint[],
@@ -37,7 +37,7 @@ export const runSim = (
             }
           }
 
-          currentPowerDemand += chargepoint.currentPowerConsumption;
+          currentPowerDemand += chargepoint.getCurrentPowerConsumption();
 
           // process the chargepoint for this tick
           chargepoint.tick();

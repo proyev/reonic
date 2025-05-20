@@ -1,4 +1,4 @@
-import { ARRIVAL_PROBABILITY_BY_HOUR, CHARGING_DEMAND } from "../constants";
+import { ARRIVAL_PROBABILITY_BY_HOUR, CHARGING_DEMAND } from "../constants.js";
 
 export const getEVArrivalProbability = (hourIndex: number): number => {
   if (hourIndex < 0 || hourIndex > 23)

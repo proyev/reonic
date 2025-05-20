@@ -1,17 +1,16 @@
 import { v4 as uuidv4 } from "uuid";
-import { Chargepoint as IChargepoint } from "./types";
+import { Chargepoint as IChargepoint } from "./types.js";
 import {
   DEFAULT_CHARGEPOINT_POWER,
   DEFAULT_EV_CONSUMPTION,
   TIME_CONSTANTS,
-} from "../constants";
+} from "../constants.js";
 
 export class Chargepoint implements IChargepoint {
   private _id: string;
   private _isOccupied: boolean = false;
   private _remainingChargingTime: number = 0; // in ticks
   private _chargePower: number;
-  private _currentPowerConsumption: number; // in kW
   private _totalCharges: number = 0;
   private _totalEnergyConsumption: number = 0;
 
@@ -36,16 +35,16 @@ export class Chargepoint implements IChargepoint {
     return this._remainingChargingTime;
   }
 
-  get currentPowerConsumption(): number {
-    return this._isOccupied ? this._chargePower : 0;
-  }
-
   get totalCharges(): number {
     return this._totalCharges;
   }
 
   get totalEnergyConsumption(): number {
     return this._totalEnergyConsumption;
+  }
+
+  getCurrentPowerConsumption(): number {
+    return this._isOccupied ? this._chargePower : 0;
   }
 
   startCharging(demandKm: number): void {
