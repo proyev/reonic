@@ -3,7 +3,6 @@ import PowerConsumptionChart from "./charts/PowerConsumptionChart";
 import SimulationControls from "./simulation/SimulationControls";
 import SimulationSummary from "./simulation/SimulationSummary";
 import Card from "./ui/Card";
-
 import ChargingEventsChart from "./charts/ChargingEventsChart";
 import { useState, useTransition } from "react";
 import { SimulationService } from "../adapters/simulation";
@@ -21,9 +20,10 @@ export default function Dashboard() {
     startTransition(async () => {
       try {
         const result = await SimulationService.runSimulation(params);
+
         startTransition(() => setSimulationResult(result));
       } catch {
-        setError("An error occurred while running the simulation.");
+        setError("Failed to start simulation. Please try again.");
       }
     });
   };
@@ -39,7 +39,7 @@ export default function Dashboard() {
 
             {!isPending && !error && simulationResult && (
               <Card title="Simulation Summary">
-                <SimulationSummary result={{ ...simulationResult }} />
+                <SimulationSummary result={simulationResult} />
               </Card>
             )}
           </div>
@@ -54,6 +54,7 @@ export default function Dashboard() {
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
+                    aria-hidden="true"
                   >
                     <path
                       strokeLinecap="round"
@@ -69,6 +70,7 @@ export default function Dashboard() {
                   <button
                     onClick={() => setError(undefined)}
                     className="mt-4 px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 hover:cursor-pointer"
+                    aria-label="Dismiss error message"
                   >
                     Dismiss
                   </button>
@@ -77,7 +79,11 @@ export default function Dashboard() {
             )}
 
             {isPending ? (
-              <div className="flex justify-center items-center">
+              <div
+                className="flex justify-center items-center"
+                aria-live="polite"
+                aria-busy="true"
+              >
                 <Spinner size={40} />
               </div>
             ) : (
@@ -86,13 +92,13 @@ export default function Dashboard() {
                   <>
                     <Card title="Power Consumption Analysis">
                       <PowerConsumptionChart
-                        dataPoints={simulationResult?.dataPoints ?? []}
+                        dataPoints={simulationResult.dataPoints}
                       />
                     </Card>
 
                     <Card title="Charging Events Analysis">
                       <ChargingEventsChart
-                        dataPoints={simulationResult?.dataPoints ?? []}
+                        dataPoints={simulationResult.dataPoints}
                       />
                     </Card>
                   </>
