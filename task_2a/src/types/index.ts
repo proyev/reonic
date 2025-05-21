@@ -11,7 +11,6 @@ export type DataPoint = {
   numActiveChargePoints: number;
 };
 
-// TODO - make it extension of prev task type
 export type SimulationResult = {
   totalEnergyConsumed: number; // kWh
   actualMaxPowerDemand: number; // kW
@@ -19,3 +18,5 @@ export type SimulationResult = {
   concurrencyFactor: number; // percentage
   dataPoints: DataPoint[];
 };
+
+export type TimeframeOption = "day" | "week" | "month" | "year";
