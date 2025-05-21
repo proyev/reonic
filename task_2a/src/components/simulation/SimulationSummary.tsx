@@ -6,7 +6,7 @@ type SimulationSummaryProps = {
 
 export default function SimulationSummary({ result }: SimulationSummaryProps) {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <div className="grid grid-cols-1">
       <div className="p-3 rounded-lg">
         <h3 className="text-sm font-medium text-primary">
           Total Energy Consumed
