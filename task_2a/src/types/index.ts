@@ -16,6 +16,6 @@ export type SimulationResult = {
   totalEnergyConsumed: number; // kWh
   actualMaxPowerDemand: number; // kW
   theoreticalMaxPowerDemand: number; // kW
-  concurencyFactor: number; // percentage
+  concurrencyFactor: number; // percentage
   dataPoints: DataPoint[];
 };
