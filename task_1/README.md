@@ -19,10 +19,6 @@ The model accounts for:
 ## Installation
 
 ```bash
-# Clone the repository
-git clone https://github.com/your-username/ev-charging-simulation.git
-cd ev-charging-simulation
-
 # Install dependencies
 npm install
 ```
@@ -124,11 +120,3 @@ Concurrency factor: 50.00%
 The implementation includes:
 
 - Analysis of concurrency factor behavior with 1-30 chargepoints
-
-## Next Steps
-
-Task 2a will extend this simulation with a frontend visualization using React and Tailwind CSS to allow interactive exploration of different parameters and their effects on charging patterns.
-
-## License
-
-ISC
