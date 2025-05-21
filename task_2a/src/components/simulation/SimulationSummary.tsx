@@ -1,7 +1,7 @@
 import type { SimulationResult } from "../../types";
 
 type SimulationSummaryProps = {
-  result: SimulationResult;
+  result: Omit<SimulationResult, "dataPoints">;
 };
 
 export default function SimulationSummary({ result }: SimulationSummaryProps) {
